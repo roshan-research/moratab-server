@@ -2,6 +2,7 @@
 import pdfkit
 from flask import Flask, make_response
 app = Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 
 @app.route('/')
