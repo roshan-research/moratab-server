@@ -1,0 +1,9 @@
+@font-face {
+  font-family: IRMitra;
+  font-weight: normal;
+  src: url('/static/IRMitra.woff') format('woff');
+}
+
+html {
+	direction: rtl;
+}
