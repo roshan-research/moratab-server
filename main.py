@@ -7,8 +7,9 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 
 @app.route('/')
 def main(url=None):
-	pdfkit.from_url('http://google.com', '~/static/out.pdf')
-	response = make_response(open('~/static/out.pdf').read())
+	pdf_file = './tmp/document.pdf'
+	pdfkit.from_url('http://google.com', pdf_file)
+	response = make_response(open(pdf_file).read())
 	response.content_type = 'application/pdf'
 	return response
 
