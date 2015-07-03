@@ -1,13 +1,15 @@
 
 import pdfkit
-from flask import Flask
+from flask import Flask, make_response
 app = Flask(__name__)
 
 
 @app.route('/')
 def main(url=None):
-	pdfkit.from_url('http://google.com', 'out.pdf')
-	return 'Moratab Server!'
+	pdfkit.from_url('http://google.com', '~/static/out.pdf')
+	response = make_response(open('~/static/out.pdf').read())
+	response.content_type = 'application/pdf'
+	return response
 
 
 if __name__ == '__main__':
