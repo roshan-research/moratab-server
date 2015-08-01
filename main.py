@@ -12,6 +12,9 @@ options = {
 	'margin-right': '0.75in',
 	'margin-left': '0.75in',
 	'margin-bottom': '0.75in',
+	'print-media-type': None,
+	# 'user-style-sheet': 'static/main.css',
+	'load-error-handling': 'ignore'
 }
 
 
