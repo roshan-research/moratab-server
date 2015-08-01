@@ -28,6 +28,14 @@ def html():
 	return render_template('main.html', content=content)
 
 
+@app.route('/test')
+def test():
+	pdfkit.from_url('http://google.com', pdf_file)
+	response = make_response(open(pdf_file).read())
+	response.content_type = 'application/pdf'
+	return response
+
+
 @app.route('/pdf', methods=['POST'])
 def pdf():
 	content = moratab.render(request.form['moratab'])
