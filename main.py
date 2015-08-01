@@ -6,7 +6,6 @@ app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 
-css_file = 'static/main.css'
 pdf_file = 'static/document.pdf'
 options = {
 	'margin-top': '0.75in',
@@ -24,7 +23,6 @@ def main():
 @app.route('/html', methods=['POST'])
 def html():
 	content = moratab.render(request.form['moratab'])
-	content = '<link type="text/css" rel="stylesheet" href="{0}">'.format(css_file) + content
 	return render_template('main.html', content=content)
 
 
@@ -40,9 +38,10 @@ def test():
 def pdf():
 	content = moratab.render(request.form['moratab'])
 	html = render_template('main.html', content=content)
-	pdfkit.from_string(html, pdf_file, options=options, css=css_file)
+	pdfkit.from_string(html, pdf_file, options=options)
 	response = make_response(open(pdf_file).read())
 	response.content_type = 'application/pdf'
+	response.headers['Access-Control-Allow-Origin'] = '*'
 	return response
 
 
