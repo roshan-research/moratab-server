@@ -45,6 +45,7 @@ def pdf():
 	response = make_response(open(pdf_file).read())
 	response.content_type = 'application/pdf'
 	response.headers['Access-Control-Allow-Origin'] = '*'
+	response.headers['Content-Disposition'] = 'attachment; filename="moratab.pdf"'
 	return response
 
 
