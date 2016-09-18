@@ -7,7 +7,8 @@ app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 
-new_pdf_filename = lambda: 'static/{}.pdf'.format(int(time.time()*100))
+def new_pdf_filename():
+    return 'static/{}.pdf'.format(int(time.time()*100))
 
 options = {
     'margin-top': '0.75in',
