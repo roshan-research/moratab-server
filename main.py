@@ -1,8 +1,11 @@
-
 import time
 import moratab
 import pdfkit
+import os
+
 from flask import Flask, request, render_template, make_response
+
+
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
@@ -15,8 +18,6 @@ options = {
     'margin-right': '0.75in',
     'margin-left': '0.75in',
     'margin-bottom': '0.75in',
-    'print-media-type': None,
-    # 'user-style-sheet': 'static/main.css',
     'load-error-handling': 'ignore'
 }
 
@@ -46,7 +47,8 @@ def pdf():
     content = moratab.render(request.form['moratab'])
     html = render_template('main.html', content=content)
     pdf_file = new_pdf_filename()
-    pdfkit.from_string(html, pdf_file, options=options)
+    pdfkit.from_string(html, pdf_file, options=options,
+                       css='%s/static/main.css' % os.getcwd())
     response = make_response(open(pdf_file).read())
     response.content_type = 'application/pdf'
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -55,4 +57,4 @@ def pdf():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=1373)
