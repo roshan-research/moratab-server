@@ -1,7 +1,7 @@
 
-import time
+from __future__ import print_function
+import os, time, tempfile
 import moratab
-import pdfkit
 from flask import Flask, request, render_template, make_response
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
@@ -9,20 +9,26 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 
 new_pdf_filename = lambda: 'static/{}.pdf'.format(int(time.time()*100))
 
-options = {
-	'margin-top': '0.75in',
-	'margin-right': '0.75in',
-	'margin-left': '0.75in',
-	'margin-bottom': '0.75in',
-	'print-media-type': None,
-	# 'user-style-sheet': 'static/main.css',
-	'load-error-handling': 'ignore'
-}
+
+def to_pdf(html, output):
+	address = os.path.abspath(os.path.dirname(__file__))
+	with tempfile.NamedTemporaryFile(delete=True, suffix='.html', dir=address) as html_file:
+		html_file.write(html.encode('utf-8'))
+		html_file.flush()
+
+		filename = os.path.join(address, html_file.name)
+		# os.system('chromium-browser --headless --disable-gpu --print-to-pdf={} file://{}'.format(output, filename))
+		os.system('chrome-headless-render-pdf --chrome-binary /usr/bin/chromium-browser --include-background --url file://{} --pdf {}'.format(filename, output))
 
 
 @app.route('/')
 def main():
 	return 'Moratab Server!'
+
+
+@app.route('/form')
+def form():
+	return render_template('form.html')
 
 
 @app.route('/html', methods=['POST'])
@@ -34,7 +40,7 @@ def html():
 @app.route('/test')
 def test():
 	pdf_file = new_pdf_filename()
-	pdfkit.from_url('http://google.com', pdf_file)
+	to_pdf('Salam!', pdf_file)
 	response = make_response(open(pdf_file).read())
 	response.content_type = 'application/pdf'
 	return response
@@ -45,7 +51,7 @@ def pdf():
 	content = moratab.render(request.form['moratab'])
 	html = render_template('main.html', content=content)
 	pdf_file = new_pdf_filename()
-	pdfkit.from_string(html, pdf_file, options=options)
+	to_pdf(html, pdf_file)
 	response = make_response(open(pdf_file).read())
 	response.content_type = 'application/pdf'
 	response.headers['Access-Control-Allow-Origin'] = '*'

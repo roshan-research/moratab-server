@@ -1,4 +1,4 @@
-Flask==0.10.1
+Flask==0.11.1
 gunicorn==19.3.0
 pdfkit==0.5.0
-moratab==0.5
+moratab==0.5.2
