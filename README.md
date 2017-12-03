@@ -3,4 +3,6 @@
 
 ## Heroku Config
 
-    heroku config:set PATH=/app/.apt/usr/local/bin:/app/.heroku/python/bin:/app/.apt/usr/bin:/usr/local/bin:/usr/bin:/bin
+    heroku buildpacks:set heroku/python
+    heroku buildpacks:add --index 2 heroku/nodejs
+    heroku buildpacks:add --index 3 https://github.com/heroku/heroku-buildpack-google-chrome
