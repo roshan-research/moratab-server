@@ -18,7 +18,7 @@ def to_pdf(html, output):
 
 		filename = os.path.join(address, html_file.name)
 		# os.system('chromium-browser --headless --disable-gpu --print-to-pdf={} file://{}'.format(output, filename))
-		os.system('chrome-headless-render-pdf --chrome-binary /usr/bin/chromium-browser --include-background --url file://{} --pdf {}'.format(filename, output))
+		os.system('chrome-headless-render-pdf --include-background --url file://{} --pdf {}'.format(filename, output))
 
 
 @app.route('/')
