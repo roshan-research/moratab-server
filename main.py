@@ -1,5 +1,4 @@
 
-from __future__ import print_function
 import os, time, tempfile
 import moratab
 from flask import Flask, request, render_template, make_response
@@ -52,7 +51,7 @@ def pdf():
 	html = render_template('main.html', content=content)
 	pdf_file = new_pdf_filename()
 	to_pdf(html, pdf_file)
-	response = make_response(open(pdf_file).read())
+	response = make_response(open(pdf_file, 'rb').read())
 	response.content_type = 'application/pdf'
 	response.headers['Access-Control-Allow-Origin'] = '*'
 	response.headers['Content-Disposition'] = 'attachment; filename="moratab.pdf"'
