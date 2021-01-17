@@ -40,7 +40,7 @@ def html():
 def test():
 	pdf_file = new_pdf_filename()
 	to_pdf('Salam!', pdf_file)
-	response = make_response(open(pdf_file).read())
+	response = make_response(open(pdf_file, 'rb').read())
 	response.content_type = 'application/pdf'
 	return response
 
