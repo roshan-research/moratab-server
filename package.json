@@ -1,14 +1,14 @@
 {
-	"name": "moratab",
-	"version": "1.0.0",
-	"description": "...",
-	"main": "index.js",
-	"dependencies": {
-		"chrome-headless-render-pdf": "1.4.2"
-	},
-	"engines": {
-		"node": "8.9.1"
-	},
-	"author": "Alireza Nourian",
-	"license": "MIT"
+    "name": "moratab",
+    "version": "1.0.0",
+    "description": "...",
+    "main": "index.js",
+    "dependencies": {
+        "chrome-headless-render-pdf": "1.8.5"
+    },
+    "engines": {
+        "node": "8.9.1"
+    },
+    "author": "Alireza Nourian",
+    "license": "MIT"
 }
